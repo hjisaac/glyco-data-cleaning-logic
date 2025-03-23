@@ -4,6 +4,7 @@ import glob
 import pandas as pd
 from pathlib import Path
 
+
 def get_ipc_files(location) -> list[str]:
     """
     Get IPC files from a directory or a single IPC file.

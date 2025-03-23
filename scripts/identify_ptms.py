@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 """
@@ -12,11 +12,12 @@ i.e., proteins. The PTMs distribution is pretty much like a gaussian distributio
 import os
 import re
 import sys
+import itertools
 import logging
+from typing import Iterable, Sequence
 
 # https://stackoverflow.com/questions/17935130/which-module-should-contain-logging-config-dictconfigmy-dictionary-what-about
 import logging.config  # noqa
-import itertools
 import pandas as pd
 from tqdm import tqdm
 from enum import Enum
@@ -29,17 +30,18 @@ from common.constants import BASE_RAW_DATA_DIR, BASE_PTMS_DIR
 from common.logger import get_logger_config
 
 
-# In[2]:
+# In[3]:
 
 
 logger_config = get_logger_config(subdir="scripts")
 logging.config.dictConfig(logger_config)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 class PTMSitesEnum(str, Enum):
     """
-    Potential amino acid on which we may have a ptms.
+    Potential amino acid on which we may have a ptm.
     """
 
     # Asparagine (N) # noqa
@@ -59,9 +61,8 @@ ipc_files = get_ipc_files(BASE_RAW_DATA_DIR)
 
 def identify_ptms(
     ipc_files: list, ptm_examples_limit: int = 5, return_df=True  # noqa
-) -> dict[str : OrderedSet[tuple]]:
+) -> dict[str : OrderedSet[tuple]] | pd.DataFrame:
     """
-
     Identify post-translational modifications (PTMs) from a list of IPC files.
 
     This function processes a list of IPC files containing peptide sequences
@@ -88,7 +89,7 @@ def identify_ptms(
     # Seen ptms
     seen_ptms = {}
 
-    # As glob list files folder by folder, keeping track of the
+    # As glob lists files folder by folder, keeping track of the
     # previous project helps us to know when we change a project.
     current_project_name = None
 
@@ -123,6 +124,9 @@ def identify_ptms(
                         continue
                     if peptide_sequence.modified_peptide in seen_ptms[glycan_mass]:
                         # This is a known/seen example, so continue
+                        logger.debug(
+                            f"Skipping seen glycan_mass={glycan_mass}, peptide_sequence.modified_peptide={peptide_sequence.modified_peptide}"
+                        )
                         continue
 
                     seen_ptms[glycan_mass].add(
@@ -150,6 +154,9 @@ def identify_ptms(
                             )
                         ]
                     )
+                    logger.debug(
+                        f"Adding new ptm with glycan_mass={glycan_mass} to seen ptms"
+                    )
 
                 added_examples_count += 1
 
@@ -159,7 +166,7 @@ def identify_ptms(
 
     return (
         pd.DataFrame(
-            itertools.chain.from_iterable(ptms.values()),
+            itertools.chain.from_iterable(seen_ptms.values()),
             columns=(
                 "glycan_mass",
                 "project_name",
@@ -173,7 +180,7 @@ def identify_ptms(
     )
 
 
-# In[ ]:
+# In[4]:
 
 
 if __name__ == "__main__":
