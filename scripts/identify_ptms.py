@@ -44,16 +44,15 @@ class PTMSitesEnum(str, Enum):
     Potential amino acid on which we may have a ptm.
     """
 
-    # Asparagine (N) # noqa
-    N_GLYCOSYLATION = "N"
-    # Threonine (T) and Serine (S)
-    O_GLYCOSYLATION = "ST"
+    # Glycosylation only happens on Asparagine within this sequence(Asn-{Any}-Ser/Thr).
+    # But we will just assume that it can happen on any Asparagine for simplicity reasons.
+    N_GLYCOSYLATION = "N"  # Asparagine (N)
+    O_GLYCOSYLATION = "ST"  # Threonine (T) and Serine (S)
     GLYCOSYLATION = N_GLYCOSYLATION + O_GLYCOSYLATION
     ANY = "ACDEFGHIKLMNPQRSTVWYacdefghiklmnpqrstvwy"  # noqa
 
 
 GLYCOSYLATION_REGEX_TEMPLATE = r"(?P<aa>[{sites}])\[(?P<glycan_mass>\d+)\]"
-# Glycosylation only happens on Asparagine (Asn-{Any}-Ser)
 N_GLYCOSYLATION_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(
     sites=PTMSitesEnum.N_GLYCOSYLATION
 )
@@ -122,7 +121,7 @@ def identify_ptms(
             # ptms will contain a list of (amino_acid, glycan_mass)
             ptms: list[tuple[str, str]] = re.findall(  # noqa
                 # Any ptm with square bracket notation
-                ANY_PTM_REGEX,
+                ANY_PTM_REGEX,  # N_GLYCOSYLATION_REGEX
                 sequence_object.modified_peptide,
             )
 
@@ -151,11 +150,12 @@ def identify_ptms(
                     file_name,
                     sequence_object.index,
                     sequence_object.Index,
+                    sequence_object.modified_peptide,
                 )
 
                 if ptm_example in ptm_examples:
                     # This is a known/seen example, so continue
-                    logger.debug(f"Skipping seen ptm example {ptm_example}")
+                    logger.debug(f"Skipping already seen ptm example {ptm_example}")
                     continue
 
                 elif len(ptm_examples) == 0:
@@ -183,11 +183,13 @@ def identify_ptms(
         pd.DataFrame(
             itertools.chain.from_iterable(seen_ptms.values()),
             columns=(
+                "amino_acid",
                 "glycan_mass",
                 "project_name",
                 "file_name",
                 "spectrum_id",
                 "ipc_index",
+                "modified_peptide",
             ),
         )
         if return_df
@@ -199,11 +201,7 @@ def identify_ptms(
 
 
 if __name__ == "__main__":
-
-    csv_name = (
-        f"{BASE_PTMS_DIR}/identified_glyco_ptms_with_5_examples_{get_timestamp()}.csv"
-    )
+    csv_name = f"{BASE_PTMS_DIR}/identified_ptms_with_5_examples{get_timestamp()}.csv"
     ptms_df = identify_ptms(ipc_files)
     ptms_df.to_csv(csv_name, index=False)
-    logger.info(f"Save {len(ptms_df)} found ptm examples into {csv_name} successfully")
-
+    logger.info(f"Saved {len(ptms_df)} found ptm examples into {csv_name} successfully")
