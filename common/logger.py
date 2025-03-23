@@ -30,7 +30,7 @@ def get_logger_config(subdir: str = "") -> dict:
                 # 'suffix': '%Y-%m-%d',
             },
             "console": {
-                "level": "INFO",
+                "level": "DEBUG",
                 "formatter": "standard",
                 "class": "logging.StreamHandler",
             },

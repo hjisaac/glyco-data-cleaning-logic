@@ -43,14 +43,13 @@ htmlcov/
 *.log
 *.LOG
 *.Log
-logs/
 *.log/
 
 # Generated data files
 # Since your project generates synthetic data (e.g., CSV files)
 *.csv
-!reports/ptms/*.csv
-!reports/csv_misc/*.csv
+!reports/ptms/identified_n_glycosylation_ptms_with_5_examples.csv
+!reports/ptms/identified_ptms_with_5_examples.csv
 *.feather  # If you use Feather format for data
 
 # IDE and editor files

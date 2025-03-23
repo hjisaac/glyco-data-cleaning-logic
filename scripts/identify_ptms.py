@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[3]:
 
 
 """
@@ -14,7 +14,7 @@ import re
 import sys
 import itertools
 import logging
-from typing import Iterable, Sequence
+from typing import Iterable
 
 # https://stackoverflow.com/questions/17935130/which-module-should-contain-logging-config-dictconfigmy-dictionary-what-about
 import logging.config  # noqa
@@ -25,12 +25,12 @@ from ordered_set import OrderedSet
 
 # Temporary fix for imports, investigate later
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-from common.utils import get_ipc_files
+from common.utils import get_ipc_files, get_timestamp
 from common.constants import BASE_RAW_DATA_DIR, BASE_PTMS_DIR
 from common.logger import get_logger_config
 
 
-# In[3]:
+# In[4]:
 
 
 logger_config = get_logger_config(subdir="scripts")
@@ -49,14 +49,20 @@ class PTMSitesEnum(str, Enum):
     # Threonine (T) and Serine (S)
     O_GLYCOSYLATION = "ST"
     GLYCOSYLATION = N_GLYCOSYLATION + O_GLYCOSYLATION
-    PHOSPHORYLATION = "XYZ"  # FIXME
+    ANY = "ACDEFGHIKLMNPQRSTVWYacdefghiklmnpqrstvwy"  # noqa
 
 
 GLYCOSYLATION_REGEX_TEMPLATE = r"(?P<aa>[{sites}])\[(?P<glycan_mass>\d+)\]"
 # Glycosylation only happens on Asparagine (Asn-{Any}-Ser)
-N_GLYCOSYLATION_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(sites="N")
+N_GLYCOSYLATION_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(
+    sites=PTMSitesEnum.N_GLYCOSYLATION
+)
+# Regex to capture any ptm of the nature ABC..[n]...
+ANY_PTM_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(sites=PTMSitesEnum.ANY)
 
 ipc_files = get_ipc_files(BASE_RAW_DATA_DIR)
+
+logger.info(f"Found {len(ipc_files)} IPC files in {BASE_RAW_DATA_DIR}: {ipc_files}")
 
 
 def identify_ptms(
@@ -92,77 +98,86 @@ def identify_ptms(
     # As glob lists files folder by folder, keeping track of the
     # previous project helps us to know when we change a project.
     current_project_name = None
+    modified_peptides_count = 0
+    unmodified_peptides_count = 0
+    global_added_examples_count = 0
 
     for ipc_file in tqdm(ipc_files, desc="Processing IPC files", unit="file"):
 
-        # Group the files per project could help to avoid doing this
+        # Grouping the files per project will help to avoid doing this at each iteration
         *_, project_name, file_name = str(ipc_file).split("/")
 
         if current_project_name != project_name:
-            logger.info(f"Start processing the ipc file  of project {project_name}")
+            logger.info(f"Start processing the ipc files of the project {project_name}")
             current_project_name = project_name
 
         df = pd.read_feather(ipc_file)
-
+        # File level added count
         added_examples_count = 0
 
-        for peptide_sequence in df.itertuples(name="PeptideSequence"):
-            if peptide_sequence.modified_peptide is None:
+        for sequence_object in df.itertuples(name="SequenceObject"):
+            if sequence_object.modified_peptide is None:
                 continue
 
-            ptms = re.findall(  # noqa
-                N_GLYCOSYLATION_REGEX, peptide_sequence.modified_peptide
+            # ptms will contain a list of (amino_acid, glycan_mass)
+            ptms: list[tuple[str, str]] = re.findall(  # noqa
+                # Any ptm with square bracket notation
+                ANY_PTM_REGEX,
+                sequence_object.modified_peptide,
             )
 
             if not ptms:
                 # Do nothing if there is no ptm
+                logger.debug(
+                    f"No ptm found in {sequence_object.modified_peptide}, skipping..."
+                )
+                unmodified_peptides_count += 1
                 continue
 
-            for aa, glycan_mass in ptms:
-                if glycan_mass in seen_ptms:
-                    if len(seen_ptms[glycan_mass]) == ptm_examples_limit:
-                        continue
-                    if peptide_sequence.modified_peptide in seen_ptms[glycan_mass]:
-                        # This is a known/seen example, so continue
-                        logger.debug(
-                            f"Skipping seen glycan_mass={glycan_mass}, peptide_sequence.modified_peptide={peptide_sequence.modified_peptide}"
-                        )
-                        continue
+            modified_peptides_count += 1
 
-                    seen_ptms[glycan_mass].add(
-                        # A hashable datastructures is necessary for OrderSet to work.
-                        # Index and index of peptide respectively represent df index and spectrum index
-                        # ({glycan_mass}, {project name}, {file_name}, {spectrum_id}, {ipc index})
-                        (
-                            glycan_mass,
-                            project_name,
-                            file_name,
-                            peptide_sequence.index,
-                            peptide_sequence.Index,
-                        )
-                    )
+            for ptm in ptms:
+                ptm_examples = seen_ptms.get(ptm, OrderedSet())
+                if len(ptm_examples) == ptm_examples_limit:
+                    # ptm examples count reached so, do nothing
+                    continue
+
+                # A hashable datastructures (here tuple) is necessary for OrderSet to work.
+                # Index and index of peptide respectively represent df index and spectrum index
+                # (amino_acid, glycan_mass, project_name, file_name, spectrum_id, ipc_index)
+                ptm_example = (
+                    *ptm,
+                    project_name,
+                    file_name,
+                    sequence_object.index,
+                    sequence_object.Index,
+                )
+
+                if ptm_example in ptm_examples:
+                    # This is a known/seen example, so continue
+                    logger.debug(f"Skipping seen ptm example {ptm_example}")
+                    continue
+
+                elif len(ptm_examples) == 0:
+                    # This is a first-seen ptm
+                    seen_ptms[ptm] = OrderedSet([ptm_example])
+                    logger.debug(f"Adding first seen ptm's example {ptm_example}")
 
                 else:
-                    seen_ptms[glycan_mass] = OrderedSet(
-                        [
-                            (
-                                glycan_mass,
-                                project_name,
-                                file_name,
-                                peptide_sequence.index,
-                                peptide_sequence.Index,
-                            )
-                        ]
-                    )
-                    logger.debug(
-                        f"Adding new ptm with glycan_mass={glycan_mass} to seen ptms"
-                    )
+                    seen_ptms[ptm].add(ptm_example)
+                    logger.debug(f"Adding example {ptm_example} to seen ptm")
 
                 added_examples_count += 1
 
+        global_added_examples_count += added_examples_count
+
         logger.info(
-            f"Successfully parsed {project_name}/{file_name} ipc file and added {added_examples_count} ptms new examples."
+            f"Successfully parsed {project_name}/{file_name} ipc file and added {added_examples_count} new example from it."
         )
+
+    logger.info(
+        f"Process finish with {unmodified_peptides_count} unmodified peptides found, {modified_peptides_count} modified peptides found, {len(seen_ptms)} ptms added, and {global_added_examples_count} examples added globally."
+    )
 
     return (
         pd.DataFrame(
@@ -180,11 +195,15 @@ def identify_ptms(
     )
 
 
-# In[4]:
+# In[ ]:
 
 
 if __name__ == "__main__":
-    ptms_df = identify_ptms(ipc_files)
-    ptms_df.to_csv(
-        f"{BASE_PTMS_DIR}/identified_glyco_ptms_with_5_examples.csv", index=False
+
+    csv_name = (
+        f"{BASE_PTMS_DIR}/identified_glyco_ptms_with_5_examples_{get_timestamp()}.csv"
     )
+    ptms_df = identify_ptms(ipc_files)
+    ptms_df.to_csv(csv_name, index=False)
+    logger.info(f"Save {len(ptms_df)} found ptm examples into {csv_name} successfully")
+

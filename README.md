@@ -5,7 +5,7 @@ This project provides logic and tools for cleaning glycomics-related data, ensur
 
 ## Features
 
-- Handles noisy and inconsistent peptide and glycan data  
+- Handles noisy, inconsistent peptide and glycan data  
 - Ensures proper formatting and structure for mass spectrometry data  
 
 ## Installation

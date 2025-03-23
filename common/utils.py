@@ -3,6 +3,7 @@ import os
 import glob
 import pandas as pd
 from pathlib import Path
+from datetime import datetime
 
 
 def get_ipc_files(location) -> list[str]:
@@ -39,3 +40,16 @@ def get_or_create_folder(path: str | Path) -> str:
 def load_ipc_files(file_paths):
     dataframes = [pd.read_feather(file_path) for file_path in file_paths]
     return pd.concat(dataframes, ignore_index=True)
+
+
+def get_timestamp(format="%Y%m%d_%H%M%S"): # noqa
+    """
+    Get the current timestamp in the specified format.
+
+    Parameters:
+        format (str): Format string for the timestamp (default: "%Y-%m-%d %H:%M:%S").
+
+    Returns:
+        str: Formatted timestamp.
+    """
+    return datetime.now().strftime(format)
