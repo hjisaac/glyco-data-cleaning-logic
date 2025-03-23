@@ -1,7 +1,4 @@
 
-### Glyco Data Cleaning Logic
-
-```markdown
 # Glyco Data Cleaning Logic
 
 This project provides logic and tools for cleaning glycomics-related data, ensuring consistency, accuracy, and usability for downstream analysis.
@@ -35,8 +32,6 @@ This project uses [Poetry](https://python-poetry.org/) for dependency management
 ## License
 
 This project is licensed under [MIT License](LICENSE).
-```
+`
 
----
 
-This covers **installation, usage, and contribution** while keeping it **minimal but informative**. Would you like any custom additions? 🚀
