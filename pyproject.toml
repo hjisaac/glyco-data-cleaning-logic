@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "instanovoglyco"
+version = "0.1.0"
+description = ""
+authors = ["hjisaac <isaac.houngue@imsp-uac.org>"]
+readme = "README.md"
+packages = [{ include = "lib" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.3"
+numpy = "^2.2.3"
+matplotlib = "^3.10.1"
+seaborn = "^0.13.2"
+pyarrow = "^19.0.1"
+jupyter = "^1.1.1"
+ordered-set = "^4.1.0"
+tqdm = "^4.67.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+black = {extras = ["jupyter"], version = "^24.8.0"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
