@@ -121,7 +121,7 @@ def identify_ptms(
             # ptms will contain a list of (amino_acid, glycan_mass)
             ptms: list[tuple[str, str]] = re.findall(  # noqa
                 # Any ptm with square bracket notation
-                ANY_PTM_REGEX,  # N_GLYCOSYLATION_REGEX
+                N_GLYCOSYLATION_REGEX,  # ANY_PTM_REGEX
                 sequence_object.modified_peptide,
             )
 
@@ -153,7 +153,7 @@ def identify_ptms(
                     sequence_object.modified_peptide,
                 )
 
-                if ptm_example in ptm_examples:
+                if ptm_example[-1] in [example[-1] for example in ptm_examples]:
                     # This is a known/seen example, so continue
                     logger.debug(f"Skipping already seen ptm example {ptm_example}")
                     continue
@@ -201,7 +201,7 @@ def identify_ptms(
 
 
 if __name__ == "__main__":
-    csv_name = f"{BASE_PTMS_DIR}/identified_ptms_with_5_examples{get_timestamp()}.csv"
+    csv_name = f"{BASE_PTMS_DIR}/identified_n_glycosylation_ptms_with_5_examples{get_timestamp()}.csv"
     ptms_df = identify_ptms(ipc_files)
     ptms_df.to_csv(csv_name, index=False)
     logger.info(f"Saved {len(ptms_df)} found ptm examples into {csv_name} successfully")

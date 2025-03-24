@@ -50,7 +50,7 @@ htmlcov/
 *.csv
 !reports/ptms/identified_n_glycosylation_ptms_with_5_examples.csv
 !reports/ptms/identified_ptms_with_5_examples.csv
-*.feather  # If you use Feather format for data
+*.feather
 
 # IDE and editor files
 # Visual Studio Code

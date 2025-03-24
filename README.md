@@ -14,8 +14,8 @@ This project uses [Poetry](https://python-poetry.org/) for dependency management
 
 1. **Clone the repository**  
    ```sh
-   git clone https://github.com/hjisaac/glyco-data-cleaning-logic.git
-   cd glyco-data-cleaning-logic
+   git clone https://github.com/hjisaac/glycopeptide-data-lens.git
+   cd glycopeptide-data-lens
    ```
 
 2. **Install dependencies**  

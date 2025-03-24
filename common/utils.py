@@ -41,7 +41,7 @@ def load_ipc_files(file_paths):
     return pd.concat(dataframes, ignore_index=True)
 
 
-def get_timestamp(format="%Y%m%d_%H%M%S"): # noqa
+def get_timestamp(format="%Y%m%d_%H%M%S"):  # noqa
     """
     Get the current timestamp in the specified format.
 
