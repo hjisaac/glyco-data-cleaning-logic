@@ -16,6 +16,8 @@ pyarrow = "^19.0.1"
 jupyter = "^1.1.1"
 ordered-set = "^4.1.0"
 tqdm = "^4.67.1"
+unimod = "0.1"
+pyyaml = "^6.0.2"
 
 
 [tool.poetry.group.dev.dependencies]

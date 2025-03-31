@@ -153,7 +153,7 @@ def identify_ptms(
                     sequence_object.modified_peptide,
                 )
 
-                if ptm_example[-1] in [example[-1] for example in ptm_examples]:
+                if ptm_example[-1] in {example[-1] for example in ptm_examples}:
                     # This is a known/seen example, so continue
                     logger.debug(f"Skipping already seen ptm example {ptm_example}")
                     continue
