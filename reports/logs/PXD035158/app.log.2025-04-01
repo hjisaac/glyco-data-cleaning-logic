@@ -1,0 +1,11 @@
+2025-04-01 20:24:51,902 - __main__ - INFO - Starting with artifacts subdir set to PXD035158, log_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/logs/PXD035158 and plots_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158
+2025-04-01 22:26:58,209 - root - WARNING - Changing matplotlib font from ['sans-serif'] to monospace
+2025-04-01 22:27:44,337 - root - WARNING - Changing matplotlib font from ['monospace'] to ['monospace']
+2025-04-01 22:59:51,205 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columnsbased_duplicates_count_barplot.pdf
+2025-04-01 23:09:15,755 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:11:24,181 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:25:53,931 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:27:16,046 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:27:59,514 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:29:09,100 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-01 23:57:44,750 - root - WARNING - Changing matplotlib font from ['monospace'] to ['monospace']
