@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
 
 
-from common.utils import get_ipc_files, get_or_create_folder
+from common.utils import collect_files, get_or_create_folder
 from common.logger import get_logger_config
 from common.constants import (
     BASE_RAW_DATA_DIR,
@@ -204,7 +204,7 @@ def plot_x_y_bar(
 #%%
 # Grab all ipc files of interest but ATTENTION;
 # loading all many ipc files will increase the computation time
-ipc_files = get_ipc_files(BASE_RAW_DATA_DIR / target_data)
+ipc_files = collect_files(BASE_RAW_DATA_DIR / target_data)
 df = pd.concat([pd.read_feather(file) for file in ipc_files], ignore_index=True)
 df.head(20)
 #%% md
