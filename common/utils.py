@@ -5,27 +5,27 @@ from pathlib import Path
 from datetime import datetime
 
 
-def get_ipc_files(location) -> list[str]:
+def collect_files(location, ext="ipc") -> list[str]:
     """
-    Get IPC files from a directory or a single IPC file.
+    Get files having from a directory or a single ext file.
 
     Args:
     location (str): The directory containing IPC files or a single IPC file.
 
     Returns:
-    list: List of IPC file paths.
+    list: List of file paths having the specified extension.
     """
     if not os.path.exists(location):
         raise FileNotFoundError(f"Location {location} not found")
 
     if os.path.isdir(location):
-        pattern = "**/*.ipc"
+        pattern = f"**/*.{ext}"
         file_paths = glob.glob(os.path.join(location, pattern), recursive=True)
         assert file_paths, file_paths
     elif os.path.isfile(location) and location.endswith(".ipc"):
         file_paths = [location]
     else:
-        raise ValueError(f"Location {location} is neither a directory nor an IPC file")
+        raise ValueError(f"Location {location} is neither a directory nor an {ext.upper()} file")
 
     return file_paths
 

@@ -25,7 +25,7 @@ from ordered_set import OrderedSet
 
 # Temporary fix for imports, investigate later
 sys.path.append(os.path.abspath(os.path.join(os.getcwd(), os.pardir)))
-from common.utils import get_ipc_files, get_timestamp
+from common.utils import collect_files, get_timestamp
 from common.constants import BASE_RAW_DATA_DIR, BASE_PTMS_DIR
 from common.logger import get_logger_config
 
@@ -59,7 +59,7 @@ N_GLYCOSYLATION_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(
 # Regex to capture any ptm of the nature ABC..[n]...
 ANY_PTM_REGEX = GLYCOSYLATION_REGEX_TEMPLATE.format(sites=PTMSitesEnum.ANY)
 
-ipc_files = get_ipc_files(BASE_RAW_DATA_DIR)
+ipc_files = collect_files(BASE_RAW_DATA_DIR)
 
 logger.info(f"Found {len(ipc_files)} IPC files in {BASE_RAW_DATA_DIR}: {ipc_files}")
 
