@@ -1,0 +1,69 @@
+2025-04-02 00:39:30,051 - root - WARNING - Changing matplotlib font from ['sans-serif'] to ['monospace']
+2025-04-02 00:39:30,066 - __main__ - INFO - Starting with artifacts subdir set to PXD035158, log_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/logs/PXD035158 and plots_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158
+2025-04-02 00:41:01,746 - root - WARNING - Changing matplotlib font from ['monospace'] to ['monospace']
+2025-04-02 00:41:01,806 - __main__ - INFO - Starting with artifacts subdir set to PXD035158, log_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/logs/PXD035158 and plots_dir set to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158
+2025-04-02 00:42:31,323 - __main__ - INFO - Combination size: 1, duplicate count: 303858
+2025-04-02 00:42:31,436 - __main__ - INFO - Combination size: 1, duplicate count: 298498
+2025-04-02 00:42:31,482 - __main__ - INFO - Combination size: 1, duplicate count: 164009
+2025-04-02 00:42:31,503 - __main__ - INFO - Combination size: 1, duplicate count: 312269
+2025-04-02 00:43:02,383 - __main__ - INFO - Combination size: 1, duplicate count: 0
+2025-04-02 00:43:29,492 - __main__ - INFO - Combination size: 1, duplicate count: 0
+2025-04-02 00:43:29,658 - __main__ - INFO - Combination size: 2, duplicate count: 294187
+2025-04-02 00:43:29,743 - __main__ - INFO - Combination size: 2, duplicate count: 160952
+2025-04-02 00:43:29,806 - __main__ - INFO - Combination size: 2, duplicate count: 301250
+2025-04-02 00:43:57,032 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:44:22,339 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:44:22,434 - __main__ - INFO - Combination size: 2, duplicate count: 160561
+2025-04-02 00:44:22,482 - __main__ - INFO - Combination size: 2, duplicate count: 295148
+2025-04-02 00:44:47,272 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:45:11,585 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:45:11,657 - __main__ - INFO - Combination size: 2, duplicate count: 163045
+2025-04-02 00:45:34,476 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:45:58,824 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:46:24,037 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:46:48,844 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:47:42,613 - __main__ - INFO - Combination size: 2, duplicate count: 0
+2025-04-02 00:47:42,838 - __main__ - INFO - Combination size: 3, duplicate count: 160124
+2025-04-02 00:47:42,924 - __main__ - INFO - Combination size: 3, duplicate count: 289874
+2025-04-02 00:48:06,397 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:48:31,458 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:48:31,589 - __main__ - INFO - Combination size: 3, duplicate count: 160951
+2025-04-02 00:48:57,920 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:49:23,105 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:49:55,634 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:50:30,563 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:51:25,092 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:51:25,255 - __main__ - INFO - Combination size: 3, duplicate count: 160484
+2025-04-02 00:51:48,515 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:52:13,771 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:52:39,323 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:53:19,814 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:54:24,613 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:54:47,734 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:55:12,372 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:56:09,599 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:57:07,009 - __main__ - INFO - Combination size: 3, duplicate count: 0
+2025-04-02 00:57:07,272 - __main__ - INFO - Combination size: 4, duplicate count: 160124
+2025-04-02 00:57:30,883 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 00:57:55,283 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 00:58:20,471 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 00:58:49,136 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 00:59:46,784 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:00:11,850 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:00:35,719 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:01:28,615 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:02:20,084 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:02:41,871 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:03:07,593 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:04:02,457 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:05:07,039 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:06:27,274 - __main__ - INFO - Combination size: 4, duplicate count: 0
+2025-04-02 01:06:56,418 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:07:31,902 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:09:29,892 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:11:31,582 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:13:26,192 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:14:28,628 - __main__ - INFO - Combination size: 5, duplicate count: 0
+2025-04-02 01:15:55,767 - __main__ - INFO - Combination size: 6, duplicate count: 0
+2025-04-02 01:15:57,231 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/columns_based_duplicates_count_barplot.pdf
+2025-04-02 02:27:44,385 - __main__ - INFO - Saved plot to /home/hjisaac/AI4Science/instanovo_instadeep/InstanovoGlyco/reports/plots/PXD035158/mz_vs_intensity_for_index_0_xy_plot.pdf
